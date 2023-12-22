@@ -9,7 +9,8 @@ from tkinter import ttk
 from PIL import ImageTk, Image
 from pdf2img import findFromFile
 
-
+if not os.path.exists("./data"):
+    os.makedirs("data")
 app = tk.Tk()
 app.geometry("800x600")
 tabControl = ttk.Notebook(app)
@@ -49,7 +50,7 @@ def select_file(booknameInput: str):
 
 loader_Label = ttk.Label(
     loaderTab,
-    text="Write Down Your Book Name. (It will be the database's file name)\nIf you don't you can't select the file. sry\nLoading will take some time, it's good time to stand up from your desk and drink some water.",
+    text="Write Down Your Book Name. (It will be the database's file name)\nIf you don't you can't select your file.",
     font=tkinter.font.Font(family="맑은 고딕", size=12),
 )
 loader_Label.pack()
@@ -89,7 +90,7 @@ combo.bind("<<ComboboxSelected>>", comboboxSelected)
 combo.pack()
 
 
-img = Image.open("DoNotDelete.png")
+img = Image.new(mode="RGB", size=(1152, 648),color=(255,255,255))
 img = img.resize(
     (round(img.width / img.width * 800), round(img.height / img.width * 800))
 )

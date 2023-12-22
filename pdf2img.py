@@ -10,7 +10,7 @@ baseDpi: Final[int] = 72
 desiredDpi: Final[int] = 300
 dpiRate: Final[int] = desiredDpi / baseDpi
 
-yImageOffset = 10
+yImageOffset = 70
 xLeftImageOffset = 40
 xRightImageOffset = 25
 
@@ -18,7 +18,7 @@ output: list = []
 
 
 def findParenthesis(page: fitz.Page):
-    regex = re.compile("^[(]\d.\d+[a-z]?[)]$")
+    regex = re.compile("^[(][\d]{1,2}.\d+[a-z]?[)]$")
     words = page.get_text("words", sort=True)
     matches = [w for w in words if regex.search(w[4])]
     for match in matches:
@@ -35,7 +35,6 @@ def findParenthesis(page: fitz.Page):
         pixn.set_origin(irect.x0, irect.y0)
         pixn.copy(pix, irect)
         output.append((pixn.tobytes(), f"{match[4][1:-1]}"))
-
 
 def findFromFile(filepath: str, bookname: str):
     doc = fitz.open(filepath)
